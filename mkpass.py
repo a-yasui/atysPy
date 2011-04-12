@@ -4,9 +4,10 @@
 import sys,os
 import re
 import random
+import string
 
 def randomstr(length):
-	stri = 'abcdefghijklmnopqrsuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+	stri = string.lowercase + string.uppercase + string.digits
 	return ''.join([random.choice(stri) for x in xrange(length)])
 
 if __name__ == '__main__':
