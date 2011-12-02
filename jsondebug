@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+import os
+import logging
+import getopt
+
+try:
+	from json import loads
+except:
+	try:
+		from simplejson import loads
+	except:
+		logging.error("cannot found simplejson or json.")
+		sys.exit(1)
+
+
+def parse (file):
+	if not os.path.exists(file):
+		logging.error("file not found: %s" % (file))
+	
+	return loads(open(file).read())
+
+def USAGE():
+	logging.info("%s [-h] file[,..]" % ('jsondebug'))
+
+if __name__ == '__main__':
+	optlist, files = ([], "")
+	
+	try:
+		optlist, files = getopt.getopt(sys.argv[1:], "h")
+	except Exception, e:
+		logging.error("%s" % (e))
+		sys.exit(1)
+	
+	for opt,optarg in optlist:
+		if opt == '-h':
+			USAGE()
+			sys.exit(0)
+		else:
+			logging.error("not support argument: %s" % (opt))
+			USAGE()
+			sys.exit(1)
+
+	for file in files:
+		print ("%s: %s" % (file, parse(file)))
+	
