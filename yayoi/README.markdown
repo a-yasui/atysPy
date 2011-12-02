@@ -26,7 +26,7 @@ Configuration
 
 1. Apache HTTP Server で Flask が動く状態にしてください。ここには面倒なので書きません
 2. WSGIScriptAlias を web.py になるように、設定して下さい
-3. Bazaar のプラグインディレクトリ(ex: /usr/lib/python2.6/site-packages/bzrlib/plugins) に、bzr_plugin にある yayoiPushHook を設置して下さい
+3. ローカルの Bazaar のプラグインディレクトリ(ex: /usr/lib/python2.6/site-packages/bzrlib/plugins) に、bzr_plugin にある yayoiPushHook を設置して下さい
 4. pull されるブランチにある、 .bzr/branch/bazaar.conf に update_url='http://<your host>/_update' を追加して下さい。<your host> は任意変更。
 5. web/serveconf.py を設定して下さい。
    
