@@ -31,8 +31,11 @@ Configuration
 5. web/serveconf.py を設定して下さい。
    
    :SRCDIR: ブランチディレクトリ。Pullされるブランチとは別に、このスクリプト専用にブランチを分けます。
+   
    :BUILDDIR: Sphinx が使用するbuildディレクトリ
-   :TEMPLATE_DIR: webブラウザ上で表示させるテンプレートのディレクトリ。このシステムでは、 Sphinx 標準に含まれている Haiku を利用しています。
+   
+   :TEMPLATE_DIR: webブラウザ上で表示させるテンプレートのディレクトリ。
+
 
 6. SRCDIR にブランチディレクトリをあらかじめ設置して下さい
 7. たぶん、これで動く。よくわからん。
