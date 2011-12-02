@@ -18,7 +18,7 @@ from jinja2 import Environment, FileSystemLoader
 
 app = Flask(__name__)
 app.debug = True # デバッグ用フラグ
-app.jinja_env = Environment(loader = FileSystemLoader(serveconf.TEMPLATE_DIR),
+app.jinja_env = Environment(loader = FileSystemLoader(os.path.abspath(serveconf.TEMPLATE_DIR)+'/'),
                             extensions=['jinja2.ext.i18n'])
 app.root_path = serveconf.BUILDDIR
 
