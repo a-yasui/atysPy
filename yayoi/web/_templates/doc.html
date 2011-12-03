@@ -1,0 +1,51 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset={{ encoding }}" />
+		<title>{{ document.title }}</title>
+		{{ document.css }}
+		<script type="text/javascript">
+		{{ document.js }}
+		</script>
+  </head>
+  <body>
+      <div class="header">
+        {%- block haikuheader %}
+        <h1 class="heading"><a href="/">
+          <span>{{ document.title|e }}</span></a></h1>
+        {%- endblock %}
+      </div>
+      <div class="topnav">
+      {{ document.relbar }}
+      </div>
+      <div class="content">
+        {{ document.body }}
+      </div>
+      <div class="bottomnav">
+      {{ document.relbar }}
+      </div>
+
+    <div class="footer">
+    {#
+    {%- if show_copyright %}
+      {%- if hasdoc('copyright') %}
+        {% trans path=pathto('copyright'), copyright=copyright|e %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
+      {%- else %}
+        {% trans copyright=copyright|e %}&copy; Copyright {{ copyright }}.{% endtrans %}
+      {%- endif %}
+    {%- endif %}
+    {%- if last_updated %}
+      {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}
+    {%- endif %}
+    {%- if show_sphinx %}
+      {% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> {{ sphinx_version }}.{% endtrans %}
+    {%- endif %}
+    #}
+    </div>
+  </body>
+</html>
+
+
