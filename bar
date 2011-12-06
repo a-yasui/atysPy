@@ -17,5 +17,30 @@ _TXT_ = """やあ （´・ω・｀)
 じゃあ、注文を聞こうか。
 """
 
+def out_words (text):
+	import time
+	import sys
+
+	for line in text.split("\n"):
+		line = unicode(line.decode("utf8"))
+		buff = ""
+		for w in line:
+			print "\r",
+			buff += w
+			time.sleep(0.06)
+			print buff,
+			sys.stdout.flush()
+
+		if len (line):
+			time.sleep(0.5)
+		print "\n",
+	# end for line in text.split("\n"):
+	return 
+
+
 if __name__ == '__main__':
-	print _TXT_
+	try:
+		out_words(_TXT_)
+	except:
+		pass
+
