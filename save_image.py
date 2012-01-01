@@ -11,6 +11,8 @@ from htmllib import HTMLParser
 from formatter import NullFormatter
 from types import *
 
+logging.basicConfig(level=logging.INFO)
+
 _REV = "$Id: save_image.py 81 2009-01-20 06:47:47Z yasui $"
 _DEBUG_ = False
 _OUTER_HOST_CONTENTS_GET_ = False
@@ -23,8 +25,8 @@ tagRegex = ['anchorParser',
             'imageParser'];
 
 def MSG(msg):
-    if _VERBOSE:
-        logging.info(msg)
+    #if _VERBOSE:
+    logging.info(msg)
 
 ##
 # HTML(XML) Parser class
@@ -218,6 +220,7 @@ def runProcess(fork=False, usingThread=False,
                    for url in opt['urllist']]:
             th.run()
     else:
+        MSG("download list: %s" % (opt['urllist']))
         for url in opt['urllist']:
             obj = webcontent(url, opt['tagType'], opt['siFooker']).getImageFromURL()
 
@@ -252,7 +255,7 @@ When if double to filename, this is append to '_[\d]' for it.
    
     optlist = urllist = None
     try :
-        optlist,urllist = getopt.getopt(sys.argv[1:],'DOhqFTp:t:')
+        optlist,urllist = getopt.getopt(sys.argv[1:],'DOhqFTvp:t:')
         if not urllist:
             print (usage)
             sys.exit(1)
@@ -268,6 +271,8 @@ When if double to filename, this is append to '_[\d]' for it.
             sys.exit(0)
         elif opt == '-q':
             _VERBOSE = False
+        elif opt == '-v':
+            _VERBOSE = True
         elif opt == '-p':
             if not os.path.exists(optarg):
                 logging.error("%s is not found", optarg)
