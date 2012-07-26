@@ -1,0 +1,94 @@
+#!/usr/bin/env python
+# -*- coding: utf_8 -*-
+
+USAGE = r""" バーコードを作製するスクリプト
+createbarcode -t <barcode type> -f <output file> <barcode>
+
+options:
+
+	-t: barcode type. allow list `ean13', `qrcode' or `code128'
+	-f: output file
+
+example:
+	
+	$ createbarcode -t ean13 -f 4901777188938.png 4901777188938
+
+Written:
+
+	a.yasui <a.yasui@gmail.com>
+"""
+
+import os
+import sys
+import getopt
+import logging
+
+try:
+	import PIL
+except:
+	logging.error("Not found Python Image Library.")
+	logging.error("Please install PIL!!")
+	sys.exit(1)
+
+try:
+	import hubarcode
+except:
+	logging.error("I can not found hubarcode package.")
+	logging.error("Please install hubarcode!!")
+	sys.exit(1)
+
+
+from hubarcode.ean13 import EAN13Encoder
+from hubarcode.qrcode import QRCodeEncoder
+from hubarcode.code128 import Code128Encoder
+
+def create_barcode (barcode, fname="barcode.png", btype="ean13"):
+	if btype not in ["ean13", "qrcode", "code128"]:
+		return False
+	
+	_bc = None 
+	if btype == "ean13":
+		_bc = EAN13Encoder(barcode)
+	elif btype == "qrcode":
+		_bc = QRCodeEncoder(barcode)
+	elif btype == "code128":
+		_bc = QRCodeEncoder(barcode)
+	
+	_bc.save(fname)
+	return True
+
+if __name__ == '__main__':
+	fname = "barcode.png"
+	btype = "ean13"
+	barcode = ""
+	
+	gn, longopts = getopt.getopt(sys.argv[1:], "f:t:h")
+	for (opt, optarg) in gn:
+		if opt == "-f":
+			fname = optarg
+		elif opt == "-t":
+			if optarg not in ["ean13", "qrcode", "code128"]:
+				print USAGE
+				sys.exit(1)
+			btype = optarg
+		else:
+			logging.warn("%s is unknown option", opt)
+			print USAGE
+			sys.exit(0)
+	
+	if not len(longopts):
+		logging.warn("barcode notset")
+		print USAGE
+		sys.exit(1)
+	
+	barcode = longopts[0]
+	
+	if barcode == '':
+		logging.warn("barcode not set")
+		print USAGE
+		sys.exit(1)
+	
+	logging.info("run barcode[%s] fname:%s type: %s", barcode, fname, btype);
+	create_barcode(barcode, fname, btype)
+
+
