@@ -1,4 +1,4 @@
-#!/usr/bin/env pypy
+#!/usr/bin/env python
 # -*- coding: utf_8 -*-
 
 import datetime

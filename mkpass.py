@@ -5,16 +5,36 @@ import sys,os
 import re
 import random
 import string
+import getopt
+
+strings = string.lowercase + string.uppercase + string.digits
+
 
 def randomstr(length):
-	stri = string.lowercase + string.uppercase + string.digits
-	return ''.join([random.choice(stri) for x in xrange(length)])
+	global strings
+	return ''.join([random.choice(strings) for x in xrange(length)])
 
 if __name__ == '__main__':
-	if len(sys.argv) > 1:
-		length = sys.argv[1]
-		if re.match(r'^\d+$', length):
-			print randomstr(int(length))
-	else:
-		print "%s length" % (sys.argv[0])
+	optlist, length = getopt.getopt(sys.argv[1:], "sh")
+	
+	USAGE = r"""%(command)s [-s] [-h] length
+Options
+
+	-s: Salt string. this use all shown stirng.
+	-h: show this.
+
+""" % (dict(command = sys.argv[0]))
+	
+	for opt, optarg in optlist:
+		if opt == '-h':
+			print USAGE
+			sys.exit(0)
+		elif opt == '-s':
+			strings = "".join([chr(i) for i in range(0x21,0x7e)])
+	
+	if not length:
+		print USAGE
+		sys.exit(1)
+	
+	print randomstr(int(length[0]))
 
