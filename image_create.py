@@ -15,10 +15,11 @@ def create (w, h, filename, dpi=74):
 	"""
 
 	# w:mm => w:pixel
-	mmToPixel = lambda x: int(float(x)*10.0* float(dpi) / 2.54)
+	mmToPixel = lambda x: int(float(x)* float(dpi) / 25.4)
 	w = mmToPixel(w)
 	h = mmToPixel(h)
 
+	print "creating.. [{1}, {2}] / {3} for {0}".format(filename, w, h, dpi)
 	im = PIL.Image.new("CMYK", (w, h))
 	print "Save.. [{1}, {2}] / {3} for {0}".format(filename, w, h, dpi)
 	im.save(filename, "JPEG", dpi=(dpi,dpi), quality=10, optimize=True, progressive=True, unit=1)
